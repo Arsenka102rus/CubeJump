@@ -2,7 +2,7 @@ import random
 from Config import *
 import pygame as pg
 from Doodler import Doodler
-from Platform import Platform
+from Platforms import *
 
 
 def game_over_message(surface, doodler_score):
@@ -16,10 +16,9 @@ def game_over_message(surface, doodler_score):
 
 
 def create_platforms(platform_group, sprites_group):
-    platform_group.add(Platform(255, 985, sprites_group))
-    for _ in range(10):
-        platform_group.add(Platform(random.randrange(0, WIDTH - 85),
-                                    random.randrange(0, HEIGHT - 115, 15), sprites_group))
+    platform_group.add(Platform(255, 950, sprites_group))
+    for i in range(0, 900, 100):
+        platform_group.add(Platform(random.randrange(0, WIDTH - 85), i, sprites_group))
 
 
 def restart(doodler, platforms: pg.sprite.Group):

@@ -1,4 +1,5 @@
 from Config import *
+from Platforms import *
 
 
 class Doodler(pg.sprite.Sprite):
@@ -19,6 +20,10 @@ class Doodler(pg.sprite.Sprite):
             if self.rect.colliderect(platform) and self.jump_power > 0 and platform.rect.y - self.rect.y >= 69:
                 self.rect.bottom = platform.rect.top
                 self.jump_power = -15
+                if platform.__class__ == BreakingPlatform:
+                    platform.falling = True
+                elif platform.__class__ == TeleportingPlatform:
+                    platform.teleport()
 
     def move(self, keys):
         if keys[pg.K_RIGHT]:
@@ -30,9 +35,9 @@ class Doodler(pg.sprite.Sprite):
         surface.blit(self.image, self.rect)
 
     def get_position(self):
-        return self.rect.size
+        return self.rect.x, self.rect.y
 
     def restart(self):
         self.rect.x = WIDTH // 2 - 50
-        self.rect.y = HEIGHT - 115
+        self.rect.y = HEIGHT - 50
         self.jump_power = -15
